@@ -28,7 +28,10 @@ export const NewTransactionModal = () => {
     handleSubmit,
     formState: { isSubmitting }
   } = useForm<NewTransactionFormInputs>({
-    resolver: zodResolver(newTransactionFromSchema)
+    resolver: zodResolver(newTransactionFromSchema),
+    defaultValues: {
+      type: 'income'
+    }
   });
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
@@ -68,11 +71,10 @@ export const NewTransactionModal = () => {
             control={control}
             name="type"
             render={({ field }) => {
-              console.log(field);
               return (
                 <TransactionType
                   onValueChange={field.onChange}
-                  name={field.value}
+                  value={field.value}
                 >
                   <TransactionTypeButton
                     variant="income"
